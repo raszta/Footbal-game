@@ -31,12 +31,13 @@ function Game(){
     else if(this.furry.direction ==="down"){
       this.furry.y =this.furry.y+1;
     }
+    if(!this.gameOver()){
     this.gameOver();
     this.hideVisibleFurry();
     this.showFurry();
     this.checkCoinCollision();
-
   }
+ }
 
   this.showFurry = function(){
     this.board[ this.index(this.furry.x,this.furry.y) ].classList.add('furry');
@@ -98,8 +99,9 @@ function Game(){
       over.style.color = "red";
       over.style.fontSize = '50px';
       over.innerText = "Game over! You scored: " + scor.innerText;
-      this.hideVisibleFurry();
+      return true;
     }
+    return false;
   }
   document.addEventListener('keydown', function(event){
     self.turnFurry(event);
