@@ -11,8 +11,8 @@
 
   <section id='score'>
     <div class="score">
-      SCORE<br>
-      <strong>0 : 0</strong>
+      Your goals<br>
+      <strong>0</strong>
     </div>
   </section>
 
@@ -170,8 +170,16 @@
   <button class="credits">Author</button>
 </section>
 
-<audio>
-  <source src="images/goal.wav" type="audio/wav"> 
+<audio class="failure">
+  <source src="images/failure.wav" type="audio/wav"> 
+  Your browser does not support the audio element.
+</audio>
+<audio class="kick">
+  <source src="images/kick.wav" type="audio/wav"> 
+  Your browser does not support the audio element.
+</audio>
+<audio class="musicOver">
+  <source src="images/gameOver.wav" type="audio/wav"> 
   Your browser does not support the audio element.
 </audio>
 
@@ -183,6 +191,16 @@
     <h2>Piotr Rasztemborski</h2>
     <p>Copyright 2018</p>   
     <button class="btnAbout">Main menu</button>
+  </div>
+
+  <div class='keyboard over info invisible'>
+    <h1>Keyboard settings</h1>
+    <h2>Moving</h2>
+    arrow up -> go up<br />
+    arrow down -> go down<br />
+    arrow left -> go left<br />
+    arrow right -> go right<br />
+    <button class="btnInfo">Main menu</button>
   </div>
 
   <script src='js/app.js'></script>

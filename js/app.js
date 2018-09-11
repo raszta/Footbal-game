@@ -85,10 +85,10 @@ function Game(){
   this.checkBallCollision = function(){
       if(this.player.x == this.ball.x && this.player.y == this.ball.y ){
         this.board[ this.index(this.ball.x,this.ball.y) ].classList.remove('ball');
-        document.querySelector('audio').play();
+        document.querySelector('.kick').play();
         this.score++;
         const scor = document.querySelector(".score strong");
-        scor.innerText = this.score + " : 0";
+        scor.innerText = this.score;
         this.ball = new Ball();
         this.showBall();
       }
@@ -96,6 +96,7 @@ function Game(){
 
   this.gameOver = function(){
     if(this.player.x <0 || this.player.x>11 ||this.player.y <0 || this.player.y>11){
+      
       clearInterval(this.idSetInterval);
       const over = document.querySelector(".over");
       over.classList.remove("invisible");
@@ -103,15 +104,17 @@ function Game(){
       const scor = document.querySelector(".score strong");
       this.hideVisiblePlayer();
       this.hideVisibleBall();
-      over.innerHTML = `<h1>Game over! You scored:  ${scor.innerText}</h1>`;
+      over.innerHTML = `<h1>Game over!</h1> <h2> Your goals:  ${scor.innerText}</h2>`;
       const btn = document.createElement('button');
-      btn.innerText = "Return"; 
+      btn.innerText = "Main menu"; 
       over.appendChild(btn);
-
+     
       btn.addEventListener('click', function () {
         over.classList.add("invisible");
-        scor.innerText = "0 : 0";
+        scor.innerText = "0";
       });
+      document.querySelector('.musicOver').play();
+
       return true;
     }
     return false;
@@ -126,34 +129,23 @@ var info = document.querySelector('.infoGame');
 var auth = document.querySelector('.credits');
 
 start.addEventListener('click', function(){
+  document.querySelector('.failure').play();
   const game = new Game();
   game.startGame();
 });
 
 info.addEventListener('click', function(){
-  const  about = document.createElement('div');
-  about.classList.add('over');
-  about.classList.add('info');
-  about.innerHTML = `<h1>Keyboard settings</h1>
-  <h2>Moving</h2>
-  arrow up -> go up<br/>
-  arrow down -> go down<br/>
-  arrow left -> go left<br/>
-  arrow right -> go right<br/>
-  `;
-  const btn = document.createElement('button');
-  btn.innerText = "Return";
-  about.appendChild(btn);
- 
-  const body = document.querySelector('body');
-  body.appendChild(about);
-
+  document.querySelector('.failure').play();
+  const keyboard = document.querySelector('.keyboard');
+  const btn = document.querySelector('.btnInfo');
+  keyboard.classList.remove('invisible');
   btn.addEventListener('click', function () {
-    body.removeChild(about);
+    keyboard.classList.add('invisible');
   });
 });
 
 auth.addEventListener('click', function(){
+  document.querySelector('.failure').play();
   const about = document.querySelector('.about');
   const btn = document.querySelector('.btnAbout');
   about.classList.remove('invisible');
