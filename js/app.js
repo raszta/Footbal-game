@@ -1,17 +1,17 @@
-function Furry () {
+function Player () {
   this.x = 0;
   this.y = 0;
   this.direction = "right";
 }
 
-function Coin(){
+function Ball(){
   this.x = Math.floor(Math.random() * 10);
   this.y = Math.floor(Math.random() * 10);
 }
 
 function Game(){
-  this.furry = new Furry();
-  this.coin = new Coin();
+  this.player = new Player();
+  this.ball = new Ball();
   this.score = 0;
   this.board = document.querySelectorAll("#board div");
 
@@ -19,78 +19,78 @@ function Game(){
   return x + (y * 10);
   }
 
-  this.moveFurry = function(){
-    if(this.furry.direction ==="right"){
-      this.furry.x =this.furry.x+1;
-    }else if(this.furry.direction ==="left"){
-      this.furry.x =this.furry.x-1;
+  this.movePlayer = function(){
+    if(this.player.direction ==="right"){
+      this.player.x =this.player.x+1;
+    }else if(this.player.direction ==="left"){
+      this.player.x =this.player.x-1;
     }
-    else if(this.furry.direction ==="up"){
-      this.furry.y =this.furry.y-1;
+    else if(this.player.direction ==="up"){
+      this.player.y =this.player.y-1;
     }
-    else if(this.furry.direction ==="down"){
-      this.furry.y =this.furry.y+1;
+    else if(this.player.direction ==="down"){
+      this.player.y =this.player.y+1;
     }
     if(!this.gameOver()){
     this.gameOver();
-    this.hideVisibleFurry();
-    this.showFurry();
-    this.checkCoinCollision();
+    this.hideVisiblePlayer();
+    this.showPlayer();
+    this.checkBallCollision();
   }
  }
 
-  this.showFurry = function(){
-    this.board[ this.index(this.furry.x,this.furry.y) ].classList.add('furry');
+  this.showPlayer = function(){
+    this.board[ this.index(this.player.x,this.player.y) ].classList.add('player');
     }
 
-    this.showCoin = function(){
-      this.board[ this.index(this.coin.x,this.coin.y) ].classList.add('coin');
+    this.showBall = function(){
+      this.board[ this.index(this.ball.x,this.ball.y) ].classList.add('ball');
     }
 
   var self = this;
   this.startGame = function(){
     this.idSetInterval = setInterval(function (){
-      self.moveFurry();
+      self.movePlayer();
     },250);
-    self.showFurry();
-    self.showCoin();
+    self.showPlayer();
+    self.showBall();
   }
 
-  this.hideVisibleFurry = function(){
-    var div = document.querySelector('.furry');
-    div.classList.remove('furry');
+  this.hideVisiblePlayer = function(){
+    var div = document.querySelector('.player');
+    div.classList.remove('player');
   }
 
-  this.turnFurry = function(event){
+  this.turnPlayer = function(event){
     switch (event.which) {
       case 37:
-        this.furry.direction = 'left';
+        this.player.direction = 'left';
         break;
       case 38:
-        this.furry.direction = 'up';
+        this.player.direction = 'up';
         break;
       case 39:
-        this.furry.direction = 'right';
+        this.player.direction = 'right';
         break;
       case 40:
-        this.furry.direction = 'down';
+        this.player.direction = 'down';
         break;
     }
   }
 
-  this.checkCoinCollision = function(){
-      if(this.furry.x == this.coin.x && this.furry.y == this.coin.y ){
-        this.board[ this.index(this.coin.x,this.coin.y) ].classList.remove('coin');
+  this.checkBallCollision = function(){
+      if(this.player.x == this.ball.x && this.player.y == this.ball.y ){
+        this.board[ this.index(this.ball.x,this.ball.y) ].classList.remove('ball');
         this.score++;
         var scor = document.querySelector("#score strong");
-        scor.innerText = this.score;
-        this.coin = new Coin();
-        this.showCoin();
+        scor.innerText = this.score + " : 0";
+        this.ball = new Ball();
+        this.showBall();
       }
   }
 
   this.gameOver = function(){
-    if(this.furry.x <0 || this.furry.x>9 ||this.furry.y <0 || this.furry.y>9){
+    if(this.player.x <0 || this.player.x>9 ||this.player.y <0 || this.player.y>9){
       clearInterval(this.idSetInterval);
       var over = document.querySelector("#over");
       over.classList.remove("invisible");
@@ -104,10 +104,15 @@ function Game(){
     return false;
   }
   document.addEventListener('keydown', function(event){
-    self.turnFurry(event);
+    self.turnPlayer(event);
   });
 }
 
 var game = new Game();
 
 game.startGame();
+
+
+// button.addEventListener('click', function(){
+//     game.startGame();
+// });

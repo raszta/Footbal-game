@@ -5,7 +5,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: linear-gradient(#fff, #e4e4e4);
+    background:  url(../images/pexels-photo-1171084.jpeg) center/cover no-repeat, linear-gradient(#fff, #e4e4e4);
     height: 95vh;
     width: 95vw;
 }
@@ -21,35 +21,31 @@ section#score {
 }
 
 #board  > div {
-  border: 1px solid black;
+  border: 2px solid black;
   float: left;
   width: 64px;
   height: 64px;
 }
-
 
 section#score div {
   width: 10em;
   height: 3em;
   text-align: center;
   padding: 0.5em;
-  background-color: rgba(211,211,211, 0.75);
-  border: 1px solid lightgray;
+  background-color: rgba(44, 226, 7, 0.75);
+  border: 1px solid rgb(86, 172, 5);
   border-radius: 1px;
-  box-shadow: 1px 1px 5px 1px lightgray;
+  box-shadow: 1px 1px 5px 1px rgb(99, 226, 14);
   margin: 1em auto;
 }
 
-
-
-
-.furry {
-  background-image: url('../images/furry.png');
+.player {
+  background-image: url('../images/man.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
-.coin {
-  background-image: url('../images/coin.png');
+.ball {
+  background-image: url('../images/Soccer-Ball-icon.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -62,7 +58,7 @@ section#over {
   top: 0;
   z-index: 1;
   padding: 10px;
-  background-color: rgba(255, 255, 0, 0.75);
+  background:url(../images/pexels-photo-917479.jpeg) center/cover no-repeat;
 }
 
 section#over pre {
