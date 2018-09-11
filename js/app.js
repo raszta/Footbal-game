@@ -16,7 +16,7 @@ function Game(){
   this.board = document.querySelectorAll("#board div");
 
   this.index = function(x,y) {
-  return x + (y * 10);
+  return x + (y * 12);
   }
 
   this.movePlayer = function(){
@@ -47,8 +47,8 @@ function Game(){
       this.board[ this.index(this.ball.x,this.ball.y) ].classList.add('ball');
     }
 
-  var self = this;
-  this.startGame = function(){
+  const self = this;
+  this.startGame = function(){   
     this.idSetInterval = setInterval(function (){
       self.movePlayer();
     },250);
@@ -57,8 +57,12 @@ function Game(){
   }
 
   this.hideVisiblePlayer = function(){
-    var div = document.querySelector('.player');
+    const div = document.querySelector('.player');
     div.classList.remove('player');
+  }
+  this.hideVisibleBall = function(){
+    const div = document.querySelector('.ball');
+    div.classList.remove('ball');
   }
 
   this.turnPlayer = function(event){
@@ -81,8 +85,9 @@ function Game(){
   this.checkBallCollision = function(){
       if(this.player.x == this.ball.x && this.player.y == this.ball.y ){
         this.board[ this.index(this.ball.x,this.ball.y) ].classList.remove('ball');
+        document.querySelector('audio').play();
         this.score++;
-        var scor = document.querySelector("#score strong");
+        const scor = document.querySelector(".score strong");
         scor.innerText = this.score + " : 0";
         this.ball = new Ball();
         this.showBall();
@@ -90,15 +95,23 @@ function Game(){
   }
 
   this.gameOver = function(){
-    if(this.player.x <0 || this.player.x>9 ||this.player.y <0 || this.player.y>9){
+    if(this.player.x <0 || this.player.x>11 ||this.player.y <0 || this.player.y>11){
       clearInterval(this.idSetInterval);
-      var over = document.querySelector("#over");
+      const over = document.querySelector(".over");
       over.classList.remove("invisible");
-      var scor = document.querySelector("#score strong");
+      over.classList.add("info");
+      const scor = document.querySelector(".score strong");
+      this.hideVisiblePlayer();
+      this.hideVisibleBall();
+      over.innerHTML = `<h1>Game over! You scored:  ${scor.innerText}</h1>`;
+      const btn = document.createElement('button');
+      btn.innerText = "Return"; 
+      over.appendChild(btn);
 
-      over.style.color = "red";
-      over.style.fontSize = '50px';
-      over.innerText = "Game over! You scored: " + scor.innerText;
+      btn.addEventListener('click', function () {
+        over.classList.add("invisible");
+        scor.innerText = "0 : 0";
+      });
       return true;
     }
     return false;
@@ -108,10 +121,43 @@ function Game(){
   });
 }
 
-// var game = new Game();
-// game.startGame();
+var start = document.querySelector('.startGame');
+var info = document.querySelector('.infoGame');
+var auth = document.querySelector('.credits');
 
+start.addEventListener('click', function(){
+  const game = new Game();
+  game.startGame();
+});
 
-// button.addEventListener('click', function(){
-//     game.startGame();
-// });
+info.addEventListener('click', function(){
+  const  about = document.createElement('div');
+  about.classList.add('over');
+  about.classList.add('info');
+  about.innerHTML = `<h1>Keyboard settings</h1>
+  <h2>Moving</h2>
+  arrow up -> go up<br/>
+  arrow down -> go down<br/>
+  arrow left -> go left<br/>
+  arrow right -> go right<br/>
+  `;
+  const btn = document.createElement('button');
+  btn.innerText = "Return";
+  about.appendChild(btn);
+ 
+  const body = document.querySelector('body');
+  body.appendChild(about);
+
+  btn.addEventListener('click', function () {
+    body.removeChild(about);
+  });
+});
+
+auth.addEventListener('click', function(){
+  const about = document.querySelector('.about');
+  const btn = document.querySelector('.btnAbout');
+  about.classList.remove('invisible');
+  btn.addEventListener('click', function () {
+    about.classList.add('invisible');
+  });
+});

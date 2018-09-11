@@ -10,7 +10,7 @@
 <body>
 
   <section id='score'>
-    <div>
+    <div class="score">
       SCORE<br>
       <strong>0 : 0</strong>
     </div>
@@ -170,9 +170,20 @@
   <button class="credits">Author</button>
 </section>
 
-  <section id='over' class='invisible'>
+<audio>
+  <source src="images/goal.wav" type="audio/wav"> 
+  Your browser does not support the audio element.
+</audio>
+
+  <section class='invisible over'>
    
   </section>
+  <div class='about over info invisible'>
+    <h1>Author</h1>
+    <h2>Piotr Rasztemborski</h2>
+    <p>Copyright 2018</p>   
+    <button class="btnAbout">Main menu</button>
+  </div>
 
   <script src='js/app.js'></script>
 </body>
